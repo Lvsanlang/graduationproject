@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.student.graduationproject.dao.mapper.Number8dataMapper">
+  <resultMap id="BaseResultMap" type="com.student.graduationproject.model.number8data.Number8data">
+    <result column="team_abbreviation" jdbcType="VARCHAR" property="teamAbbreviation" />
+    <result column="net_rating" jdbcType="DOUBLE" property="netRating" />
+    <result column="oreb_pct" jdbcType="REAL" property="orebPct" />
+    <result column="dreb_pct" jdbcType="REAL" property="drebPct" />
+    <result column="usg_pct" jdbcType="REAL" property="usgPct" />
+    <result column="ts_pct" jdbcType="REAL" property="tsPct" />
+    <result column="ast_pct" jdbcType="REAL" property="astPct" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    team_abbreviation, net_rating, oreb_pct, dreb_pct, usg_pct, ts_pct, ast_pct
+  </sql>
+  <select id="selectByExample" parameterType="com.student.graduationproject.model.number8data.Number8dataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from number8data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.student.graduationproject.model.number8data.Number8dataExample">
+    delete from number8data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.student.graduationproject.model.number8data.Number8data">
+    insert into number8data (team_abbreviation, net_rating, oreb_pct, 
+      dreb_pct, usg_pct, ts_pct, ast_pct
+      )
+    values (#{teamAbbreviation,jdbcType=VARCHAR}, #{netRating,jdbcType=DOUBLE}, #{orebPct,jdbcType=REAL}, 
+      #{drebPct,jdbcType=REAL}, #{usgPct,jdbcType=REAL}, #{tsPct,jdbcType=REAL}, #{astPct,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.student.graduationproject.model.number8data.Number8data">
+    insert into number8data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teamAbbreviation != null">
+        team_abbreviation,
+      </if>
+      <if test="netRating != null">
+        net_rating,
+      </if>
+      <if test="orebPct != null">
+        oreb_pct,
+      </if>
+      <if test="drebPct != null">
+        dreb_pct,
+      </if>
+      <if test="usgPct != null">
+        usg_pct,
+      </if>
+      <if test="tsPct != null">
+        ts_pct,
+      </if>
+      <if test="astPct != null">
+        ast_pct,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teamAbbreviation != null">
+        #{teamAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="netRating != null">
+        #{netRating,jdbcType=DOUBLE},
+      </if>
+      <if test="orebPct != null">
+        #{orebPct,jdbcType=REAL},
+      </if>
+      <if test="drebPct != null">
+        #{drebPct,jdbcType=REAL},
+      </if>
+      <if test="usgPct != null">
+        #{usgPct,jdbcType=REAL},
+      </if>
+      <if test="tsPct != null">
+        #{tsPct,jdbcType=REAL},
+      </if>
+      <if test="astPct != null">
+        #{astPct,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.student.graduationproject.model.number8data.Number8dataExample" resultType="java.lang.Long">
+    select count(*) from number8data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update number8data
+    <set>
+      <if test="record.teamAbbreviation != null">
+        team_abbreviation = #{record.teamAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netRating != null">
+        net_rating = #{record.netRating,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orebPct != null">
+        oreb_pct = #{record.orebPct,jdbcType=REAL},
+      </if>
+      <if test="record.drebPct != null">
+        dreb_pct = #{record.drebPct,jdbcType=REAL},
+      </if>
+      <if test="record.usgPct != null">
+        usg_pct = #{record.usgPct,jdbcType=REAL},
+      </if>
+      <if test="record.tsPct != null">
+        ts_pct = #{record.tsPct,jdbcType=REAL},
+      </if>
+      <if test="record.astPct != null">
+        ast_pct = #{record.astPct,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update number8data
+    set team_abbreviation = #{record.teamAbbreviation,jdbcType=VARCHAR},
+      net_rating = #{record.netRating,jdbcType=DOUBLE},
+      oreb_pct = #{record.orebPct,jdbcType=REAL},
+      dreb_pct = #{record.drebPct,jdbcType=REAL},
+      usg_pct = #{record.usgPct,jdbcType=REAL},
+      ts_pct = #{record.tsPct,jdbcType=REAL},
+      ast_pct = #{record.astPct,jdbcType=REAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectname" resultMap="BaseResultMap">
+    select  team_abbreviation
+    from number8data
+    group by team_abbreviation;
+  </select>
+
+  <select id="selectAll" parameterType="com.student.graduationproject.model.number8data.Number8data" resultMap="BaseResultMap">
+    select  net_rating, oreb_pct, dreb_pct, usg_pct, ts_pct, ast_pct
+    from number8data
+    where team_abbreviation = #{teamAbbreviation}
+  </select>
+</mapper>

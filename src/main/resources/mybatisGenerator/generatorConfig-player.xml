@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!-- 引入配置文件 -->
+    <!--统一管理MySQL-->
+    <properties resource="init.properties"/>
+    <!--targetRuntime="MyBatis3" 因为 1.3.6之后的问题加上此条件-->
+    <context id="dictionaries" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- jdbc连接 -->
+        <jdbcConnection connectionURL="${jdbc_url}"
+                        driverClass="${jdbc_driver}" password="${jdbc_password}" userId="${jdbc_user}">
+            <!-- StudentMapper.xml文件中sql语句是否有重复，true不重复，false重复 不让他重复否则会有运行报错找不到那个封装好的sql语句-->
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 实体类所存放位置 -->
+        <!--都需要放在java下 dao model-->
+        <!--model.Student： 放置实体类-->
+        <javaModelGenerator targetPackage="com.student.graduationproject.model.Player"
+                            targetProject="${project}">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 从数据库返回的值被清理前后的空格(通过trim方法实现) -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- java客户端类对应的xml映射文件存放位置 -->
+        <!--mybatis/mappers：放置XML的映射文件-->
+        <sqlMapGenerator targetPackage="mybatis.mappers" targetProject="src/main/resources" />
+
+        <!-- java客户端类接口文件存放位置 -->
+        <!--dao.mapper： 放置封装好的增删改查接口-->
+        <javaClientGenerator targetPackage="com.student.graduationproject.dao.mapper"
+                             targetProject="${project}" type="XMLMAPPER" >
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 配置表信息 -->
+        <table tableName="player">
+            <!-- <columnOverride column="???" property="???" /> -->
+        </table>
+    </context>
+</generatorConfiguration>

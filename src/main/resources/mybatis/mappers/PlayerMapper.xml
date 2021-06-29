@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.student.graduationproject.dao.mapper.PlayerMapper">
+  <resultMap id="BaseResultMap" type="com.student.graduationproject.model.Player.Player">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="player_name" jdbcType="VARCHAR" property="playerName" />
+    <result column="team_abbreviation" jdbcType="VARCHAR" property="teamAbbreviation" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="player_height" jdbcType="VARCHAR" property="playerHeight" />
+    <result column="player_weight" jdbcType="VARCHAR" property="playerWeight" />
+    <result column="college" jdbcType="VARCHAR" property="college" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="draft_year" jdbcType="VARCHAR" property="draftYear" />
+    <result column="draft_round" jdbcType="VARCHAR" property="draftRound" />
+    <result column="draft_number" jdbcType="VARCHAR" property="draftNumber" />
+    <result column="gp" jdbcType="VARCHAR" property="gp" />
+    <result column="pts" jdbcType="VARCHAR" property="pts" />
+    <result column="reb" jdbcType="VARCHAR" property="reb" />
+    <result column="ast" jdbcType="VARCHAR" property="ast" />
+    <result column="net_rating" jdbcType="VARCHAR" property="netRating" />
+    <result column="oreb_pct" jdbcType="VARCHAR" property="orebPct" />
+    <result column="dreb_pct" jdbcType="VARCHAR" property="drebPct" />
+    <result column="usg_pct" jdbcType="VARCHAR" property="usgPct" />
+    <result column="ts_pct" jdbcType="VARCHAR" property="tsPct" />
+    <result column="ast_pct" jdbcType="VARCHAR" property="astPct" />
+    <result column="season" jdbcType="VARCHAR" property="season" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, player_name, team_abbreviation, age, player_height, player_weight, college, country, 
+    draft_year, draft_round, draft_number, gp, pts, reb, ast, net_rating, oreb_pct, dreb_pct, 
+    usg_pct, ts_pct, ast_pct, season
+  </sql>
+  <select id="selectByExample" parameterType="com.student.graduationproject.model.Player.PlayerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from player
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from player
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from player
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.student.graduationproject.model.Player.PlayerExample">
+    delete from player
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.student.graduationproject.model.Player.Player">
+    insert into player (id, player_name, team_abbreviation, 
+      age, player_height, player_weight, 
+      college, country, draft_year, 
+      draft_round, draft_number, gp, 
+      pts, reb, ast, net_rating, 
+      oreb_pct, dreb_pct, usg_pct, 
+      ts_pct, ast_pct, season
+      )
+    values (#{id,jdbcType=VARCHAR}, #{playerName,jdbcType=VARCHAR}, #{teamAbbreviation,jdbcType=VARCHAR}, 
+      #{age,jdbcType=VARCHAR}, #{playerHeight,jdbcType=VARCHAR}, #{playerWeight,jdbcType=VARCHAR}, 
+      #{college,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{draftYear,jdbcType=VARCHAR}, 
+      #{draftRound,jdbcType=VARCHAR}, #{draftNumber,jdbcType=VARCHAR}, #{gp,jdbcType=VARCHAR}, 
+      #{pts,jdbcType=VARCHAR}, #{reb,jdbcType=VARCHAR}, #{ast,jdbcType=VARCHAR}, #{netRating,jdbcType=VARCHAR}, 
+      #{orebPct,jdbcType=VARCHAR}, #{drebPct,jdbcType=VARCHAR}, #{usgPct,jdbcType=VARCHAR}, 
+      #{tsPct,jdbcType=VARCHAR}, #{astPct,jdbcType=VARCHAR}, #{season,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.student.graduationproject.model.Player.Player">
+    insert into player
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="playerName != null">
+        player_name,
+      </if>
+      <if test="teamAbbreviation != null">
+        team_abbreviation,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="playerHeight != null">
+        player_height,
+      </if>
+      <if test="playerWeight != null">
+        player_weight,
+      </if>
+      <if test="college != null">
+        college,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="draftYear != null">
+        draft_year,
+      </if>
+      <if test="draftRound != null">
+        draft_round,
+      </if>
+      <if test="draftNumber != null">
+        draft_number,
+      </if>
+      <if test="gp != null">
+        gp,
+      </if>
+      <if test="pts != null">
+        pts,
+      </if>
+      <if test="reb != null">
+        reb,
+      </if>
+      <if test="ast != null">
+        ast,
+      </if>
+      <if test="netRating != null">
+        net_rating,
+      </if>
+      <if test="orebPct != null">
+        oreb_pct,
+      </if>
+      <if test="drebPct != null">
+        dreb_pct,
+      </if>
+      <if test="usgPct != null">
+        usg_pct,
+      </if>
+      <if test="tsPct != null">
+        ts_pct,
+      </if>
+      <if test="astPct != null">
+        ast_pct,
+      </if>
+      <if test="season != null">
+        season,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="playerName != null">
+        #{playerName,jdbcType=VARCHAR},
+      </if>
+      <if test="teamAbbreviation != null">
+        #{teamAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="playerHeight != null">
+        #{playerHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="playerWeight != null">
+        #{playerWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null">
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="draftYear != null">
+        #{draftYear,jdbcType=VARCHAR},
+      </if>
+      <if test="draftRound != null">
+        #{draftRound,jdbcType=VARCHAR},
+      </if>
+      <if test="draftNumber != null">
+        #{draftNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="gp != null">
+        #{gp,jdbcType=VARCHAR},
+      </if>
+      <if test="pts != null">
+        #{pts,jdbcType=VARCHAR},
+      </if>
+      <if test="reb != null">
+        #{reb,jdbcType=VARCHAR},
+      </if>
+      <if test="ast != null">
+        #{ast,jdbcType=VARCHAR},
+      </if>
+      <if test="netRating != null">
+        #{netRating,jdbcType=VARCHAR},
+      </if>
+      <if test="orebPct != null">
+        #{orebPct,jdbcType=VARCHAR},
+      </if>
+      <if test="drebPct != null">
+        #{drebPct,jdbcType=VARCHAR},
+      </if>
+      <if test="usgPct != null">
+        #{usgPct,jdbcType=VARCHAR},
+      </if>
+      <if test="tsPct != null">
+        #{tsPct,jdbcType=VARCHAR},
+      </if>
+      <if test="astPct != null">
+        #{astPct,jdbcType=VARCHAR},
+      </if>
+      <if test="season != null">
+        #{season,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.student.graduationproject.model.Player.PlayerExample" resultType="java.lang.Long">
+    select count(*) from player
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update player
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.playerName != null">
+        player_name = #{record.playerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamAbbreviation != null">
+        team_abbreviation = #{record.teamAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=VARCHAR},
+      </if>
+      <if test="record.playerHeight != null">
+        player_height = #{record.playerHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.playerWeight != null">
+        player_weight = #{record.playerWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.college != null">
+        college = #{record.college,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null">
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.draftYear != null">
+        draft_year = #{record.draftYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.draftRound != null">
+        draft_round = #{record.draftRound,jdbcType=VARCHAR},
+      </if>
+      <if test="record.draftNumber != null">
+        draft_number = #{record.draftNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gp != null">
+        gp = #{record.gp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pts != null">
+        pts = #{record.pts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reb != null">
+        reb = #{record.reb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ast != null">
+        ast = #{record.ast,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netRating != null">
+        net_rating = #{record.netRating,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orebPct != null">
+        oreb_pct = #{record.orebPct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drebPct != null">
+        dreb_pct = #{record.drebPct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usgPct != null">
+        usg_pct = #{record.usgPct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsPct != null">
+        ts_pct = #{record.tsPct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.astPct != null">
+        ast_pct = #{record.astPct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.season != null">
+        season = #{record.season,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update player
+    set id = #{record.id,jdbcType=VARCHAR},
+      player_name = #{record.playerName,jdbcType=VARCHAR},
+      team_abbreviation = #{record.teamAbbreviation,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=VARCHAR},
+      player_height = #{record.playerHeight,jdbcType=VARCHAR},
+      player_weight = #{record.playerWeight,jdbcType=VARCHAR},
+      college = #{record.college,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      draft_year = #{record.draftYear,jdbcType=VARCHAR},
+      draft_round = #{record.draftRound,jdbcType=VARCHAR},
+      draft_number = #{record.draftNumber,jdbcType=VARCHAR},
+      gp = #{record.gp,jdbcType=VARCHAR},
+      pts = #{record.pts,jdbcType=VARCHAR},
+      reb = #{record.reb,jdbcType=VARCHAR},
+      ast = #{record.ast,jdbcType=VARCHAR},
+      net_rating = #{record.netRating,jdbcType=VARCHAR},
+      oreb_pct = #{record.orebPct,jdbcType=VARCHAR},
+      dreb_pct = #{record.drebPct,jdbcType=VARCHAR},
+      usg_pct = #{record.usgPct,jdbcType=VARCHAR},
+      ts_pct = #{record.tsPct,jdbcType=VARCHAR},
+      ast_pct = #{record.astPct,jdbcType=VARCHAR},
+      season = #{record.season,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.student.graduationproject.model.Player.Player">
+    update player
+    <set>
+      <if test="playerName != null">
+        player_name = #{playerName,jdbcType=VARCHAR},
+      </if>
+      <if test="teamAbbreviation != null">
+        team_abbreviation = #{teamAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="playerHeight != null">
+        player_height = #{playerHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="playerWeight != null">
+        player_weight = #{playerWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null">
+        college = #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="draftYear != null">
+        draft_year = #{draftYear,jdbcType=VARCHAR},
+      </if>
+      <if test="draftRound != null">
+        draft_round = #{draftRound,jdbcType=VARCHAR},
+      </if>
+      <if test="draftNumber != null">
+        draft_number = #{draftNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="gp != null">
+        gp = #{gp,jdbcType=VARCHAR},
+      </if>
+      <if test="pts != null">
+        pts = #{pts,jdbcType=VARCHAR},
+      </if>
+      <if test="reb != null">
+        reb = #{reb,jdbcType=VARCHAR},
+      </if>
+      <if test="ast != null">
+        ast = #{ast,jdbcType=VARCHAR},
+      </if>
+      <if test="netRating != null">
+        net_rating = #{netRating,jdbcType=VARCHAR},
+      </if>
+      <if test="orebPct != null">
+        oreb_pct = #{orebPct,jdbcType=VARCHAR},
+      </if>
+      <if test="drebPct != null">
+        dreb_pct = #{drebPct,jdbcType=VARCHAR},
+      </if>
+      <if test="usgPct != null">
+        usg_pct = #{usgPct,jdbcType=VARCHAR},
+      </if>
+      <if test="tsPct != null">
+        ts_pct = #{tsPct,jdbcType=VARCHAR},
+      </if>
+      <if test="astPct != null">
+        ast_pct = #{astPct,jdbcType=VARCHAR},
+      </if>
+      <if test="season != null">
+        season = #{season,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.student.graduationproject.model.Player.Player">
+    update player
+    set player_name = #{playerName,jdbcType=VARCHAR},
+      team_abbreviation = #{teamAbbreviation,jdbcType=VARCHAR},
+      age = #{age,jdbcType=VARCHAR},
+      player_height = #{playerHeight,jdbcType=VARCHAR},
+      player_weight = #{playerWeight,jdbcType=VARCHAR},
+      college = #{college,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      draft_year = #{draftYear,jdbcType=VARCHAR},
+      draft_round = #{draftRound,jdbcType=VARCHAR},
+      draft_number = #{draftNumber,jdbcType=VARCHAR},
+      gp = #{gp,jdbcType=VARCHAR},
+      pts = #{pts,jdbcType=VARCHAR},
+      reb = #{reb,jdbcType=VARCHAR},
+      ast = #{ast,jdbcType=VARCHAR},
+      net_rating = #{netRating,jdbcType=VARCHAR},
+      oreb_pct = #{orebPct,jdbcType=VARCHAR},
+      dreb_pct = #{drebPct,jdbcType=VARCHAR},
+      usg_pct = #{usgPct,jdbcType=VARCHAR},
+      ts_pct = #{tsPct,jdbcType=VARCHAR},
+      ast_pct = #{astPct,jdbcType=VARCHAR},
+      season = #{season,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" parameterType="com.student.graduationproject.model.Player.PlayerExample" resultMap="BaseResultMap">
+    select *
+
+    from player
+
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+
+  </select>
+</mapper>
